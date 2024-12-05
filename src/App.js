@@ -7,6 +7,7 @@ import TextInput from './components/TextInput';
 import AnalysisResults from './components/AnalysisResults';
 import SentimentAnalysis from './components/SentimentAnalysis';
 import ExportReport from './components/ExportReport';
+import ErrorMessage from './components/ErrorMessage';
 
 // Helpers
 import {
@@ -56,6 +57,13 @@ const App = () => {
   const [sentiment, setSentiment] = useState('');
 
   const analyzeText = () => {
+    if (!text.trim()) {
+      setError('Please enter some text to analyze.');
+      setResults([]);
+      return;
+    }
+
+    setError('');
     const wordCount = getWordCount(text);
     const charCount = getCharacterCount({ text });
     const charCountNoSpaces = getCharacterCount({ text, excludeSpaces: true });
@@ -106,6 +114,7 @@ const App = () => {
       <Header>Text Analyzer Tool</Header>
       <TextInput text={text} setText={setText} />
       <AnalyzeButton onClick={analyzeText}>Analyze</AnalyzeButton>
+      {error && !text.trim() && <ErrorMessage messages={error} />}
       {results.length > 0 && <AnalysisResults results={results} />}
       {results.length > 0 && (
         <SentimentAnalysis
