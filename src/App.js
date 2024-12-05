@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { jsPDF } from 'jspdf';
 
 // Components
 import TextInput from './components/TextInput';
@@ -46,6 +47,8 @@ const AnalyzeButton = styled.button`
 `;
 
 const App = () => {
+  const doc = new jsPDF();
+
   const [text, setText] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -85,6 +88,19 @@ const App = () => {
     }
   };
 
+  const handleExport = () => {
+    doc.text('Analysis Result', 90, 10);
+    results.forEach(({ label, value }, index) =>
+      doc.text(`${label}: ${value}`, 10, `${index + 2}0`)
+    );
+    if (sentiment) {
+      doc.text('Analysis Sentiment', 90, 100);
+      doc.text(sentiment, 10, 110, { maxWidth: 185 });
+    }
+
+    doc.save('text-analysis-report.pdf');
+  };
+
   return (
     <AppContainer>
       <Header>Text Analyzer Tool</Header>
@@ -99,7 +115,7 @@ const App = () => {
           sentiment={sentiment}
         />
       )}
-      {results.length > 0 && <ExportReport data={results} />}
+      {results.length > 0 && <ExportReport onExport={handleExport} />}
     </AppContainer>
   );
 };

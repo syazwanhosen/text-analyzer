@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ExportContainer = styled.div`
   margin: 20px;
@@ -19,20 +19,10 @@ const ExportButton = styled.button`
   }
 `;
 
-const ExportReport = ({ data }) => {
-  const handleExport = () => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "text-analysis-report.json";
-    link.click();
-  };
-
-  return (
-    <ExportContainer>
-      <ExportButton onClick={handleExport}>Export Report</ExportButton>
-    </ExportContainer>
-  );
-};
+const ExportReport = ({ onExport }) => (
+  <ExportContainer>
+    <ExportButton onClick={onExport}>Export Report</ExportButton>
+  </ExportContainer>
+);
 
 export default ExportReport;
