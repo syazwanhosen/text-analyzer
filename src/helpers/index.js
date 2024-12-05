@@ -1,6 +1,7 @@
 const words = (text) => text.toLowerCase().match(/\w+/g) || [];
 
-const getWordCount = (text) => text.trim().split(/\s+/).length;
+const getWordCount = (text) =>
+  text.trim() ? text.trim().split(/\s+/).length : 0;
 
 const getCharacterCount = ({ text, excludeSpaces = false }) =>
   excludeSpaces ? text.replace(/\s/g, '').length : text.length;
