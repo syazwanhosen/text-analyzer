@@ -17,6 +17,9 @@ import {
   getLongestWord,
 } from './helpers';
 
+// API
+import { analyzeSentiment } from './services/api';
+
 const AppContainer = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -45,6 +48,9 @@ const AnalyzeButton = styled.button`
 const App = () => {
   const [text, setText] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [sentiment, setSentiment] = useState('');
 
   const analyzeText = () => {
     const wordCount = getWordCount(text);
@@ -66,6 +72,19 @@ const App = () => {
     ]);
   };
 
+  const handleAnalyze = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await analyzeSentiment(text);
+      setSentiment(result);
+    } catch (err) {
+      setError(err.message || 'Failed to fetch sentiment.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AppContainer>
       <Header>Text Analyzer Tool</Header>
@@ -74,7 +93,10 @@ const App = () => {
       {results.length > 0 && <AnalysisResults results={results} />}
       {results.length > 0 && (
         <SentimentAnalysis
-          analyzeSentiment={() => Promise.resolve('Positive')} // TODO: Get result from API response
+          onAnalyze={handleAnalyze}
+          loading={loading}
+          error={error}
+          sentiment={sentiment}
         />
       )}
       {results.length > 0 && <ExportReport data={results} />}
