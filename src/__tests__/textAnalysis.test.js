@@ -19,9 +19,9 @@ React helps build UI.`;
   });
 
   test('getCharacterCount returns the correct character count', () => {
-    expect(getCharacterCount({ text: sampleText })).toBe(70); // With spaces
+    expect(getCharacterCount({ text: sampleText })).toBe(66); // With spaces
     expect(getCharacterCount({ text: sampleText, excludeSpaces: true })).toBe(
-      58
+      54
     ); // Without spaces
     expect(getCharacterCount({ text: '' })).toBe(0); // Empty input
   });

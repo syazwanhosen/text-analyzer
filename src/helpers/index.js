@@ -1,14 +1,18 @@
 const words = (text) => text.toLowerCase().match(/\w+/g) || [];
+const cleanedText = (text) => text.replace(/[^\w\s]/g, ''); // Remove punctuation
 
 const getWordCount = (text) =>
-  text.trim() ? text.trim().split(/\s+/).length : 0;
+  cleanedText(text).trim() ? text.trim().split(/\s+/).length : 0;
 
 const getCharacterCount = ({ text, excludeSpaces = false }) =>
-  excludeSpaces ? text.replace(/\s/g, '').length : text.length;
+  excludeSpaces
+    ? cleanedText(text).replace(/\s/g, '').length
+    : cleanedText(text).length;
 
 const getSentenceCount = (text) => text.split(/[.!?]/).filter(Boolean).length;
 
-const getParagraphCount = (text) => text.split(/\n+/).filter(Boolean).length;
+const getParagraphCount = (text) =>
+  cleanedText(text).split(/\n+/).filter(Boolean).length;
 
 const getMostFrequentWord = (text) =>
   words(text).reduce(
