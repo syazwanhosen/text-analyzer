@@ -32,11 +32,11 @@ export results as a PDF.
 
 ### **Prerequisites**
 
-1.  Ensure you have [[Node.js]{.underline}](https://nodejs.org/)
+1.  Ensure you have [[Node.js]](https://nodejs.org/)
 
     > installed (version 16 or higher recommended).
 
-2.  Install [[Docker]{.underline}](https://www.docker.com/) for
+2.  Install [[Docker]](https://www.docker.com/) for
     > containerized deployment (optional).
 
 ### **1. Clone the Repository**
@@ -58,9 +58,31 @@ REACT_APP_API_URL=https://api.openai.com/v1/chat/completions
 
 REACT_APP_API_KEY=your_openai_api_key
 
-REACT_APP_MODEL=gpt-3.5-turbo
+PORT=3000
 
 Replace your_openai_api_key with your OpenAI API key.
+
+**How to Obtain Your OpenAI API Key**
+
+1.  Create an OpenAI Account
+
+    > Go to the OpenAI website.
+
+    > Sign up for a new account or log in if you already have one.
+
+2.  Access the API Dashboard
+
+    > Once logged in, navigate to the API Dashboard.
+
+3.  Generate an API Key
+
+    > Click the **Create new secret key** button.
+
+    > Copy the generated API key. You won't be able to view it again, so store it securely.
+
+4.  Update Your .env File
+
+    > Replace your_openai_api_key in the .env file with the API key you just generated.
 
 ### **4. Run the Application**
 
