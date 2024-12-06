@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# **Text Analyzer Tool**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based web application that allows users to analyze text by
+providing insights such as word count, character count, sentence count,
+paragraph count, the most frequent word, and the longest word. The tool
+also includes sentiment analysis using the OpenAI API and an option to
+export results as a PDF.
 
-## Available Scripts
+## **Features**
 
-In the project directory, you can run:
+- Analyze text for:
 
-### `npm start`
+  - Word count
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - Character count (with and without spaces)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - Sentence count
 
-### `npm test`
+  - Paragraph count
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - Most frequent word
 
-### `npm run build`
+  - Longest word
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Sentiment analysis using the OpenAI API.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Export analysis results to a PDF file.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Responsive and user-friendly interface.
 
-### `npm run eject`
+## **Setup Instructions**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Prerequisites**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1.  Ensure you have [[Node.js]{.underline}](https://nodejs.org/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    > installed (version 16 or higher recommended).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2.  Install [[Docker]{.underline}](https://www.docker.com/) for
+    > containerized deployment (optional).
 
-## Learn More
+### **1. Clone the Repository**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+git clone \<repository-url\>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+cd text-analyzer
 
-### Code Splitting
+### **2. Install Dependencies**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+npm install
 
-### Analyzing the Bundle Size
+### **3. Set Up Environment Variables**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Create a .env file in the root directory and add the following
+variables:
 
-### Making a Progressive Web App
+REACT_APP_API_URL=https://api.openai.com/v1/chat/completions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+REACT_APP_API_KEY=your_openai_api_key
 
-### Advanced Configuration
+REACT_APP_MODEL=gpt-3.5-turbo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Replace your_openai_api_key with your OpenAI API key.
 
-### Deployment
+### **4. Run the Application**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Start the development server:
 
-### `npm run build` fails to minify
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The application will be available at http://localhost:3000.
+
+### **5. Build for Production**
+
+To build the application for production:
+
+npm run build
+
+This will create a build folder with the production-ready files.
+
+### **6. Deploy Using Docker**
+
+1.  **Build the Docker Image**:\
+
+    > \
+    > docker build -t text-analyzer .
+
+2.  **Run the Docker Container**:\
+
+    > \
+    > docker run -d -p 3000:80 \--name text-analyzer text-analyzer
+
+3.  Access the application at http://localhost:3000.
+
+## **Approach to the Problem**
+
+### **1. User Input and Validation**
+
+- A **TextInput** component captures the user\'s text input with
+
+  > validation to ensure no empty input is analyzed.
+
+- Error messages are displayed for invalid input using a reusable
+  > **ErrorAlert** component.
+
+### **2. Text Analysis**
+
+- Analysis functions (e.g., getWordCount, getCharacterCount, etc.) are
+
+  > implemented using **vanilla JavaScript** for simplicity and
+  > performance.
+
+- Punctuation is ignored to provide accurate word, sentence, and
+  > character counts.
+
+### **3. Sentiment Analysis**
+
+- Integrated the OpenAI API (gpt-3.5-turbo) for sentiment analysis.
+
+- The analysis result is fetched asynchronously with proper error
+  > handling.
+
+### **4. Exporting Results**
+
+- Used the **jsPDF** library to generate and download a PDF report of
+  > the analysis results, including sentiment analysis.
+
+### **5. Responsive Design**
+
+- Styled using **styled-components** for modular and reusable styling.
+
+- Ensured the application is fully responsive for various devices.
